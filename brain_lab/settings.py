@@ -54,7 +54,7 @@ ROOT_URLCONF = 'brain_lab.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
+        'DIRS': [os.path.join(BASE_DIR, 'brain_lab/templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {

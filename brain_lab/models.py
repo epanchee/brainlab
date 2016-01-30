@@ -110,7 +110,7 @@ class SurveyList(models.Model):
 class PartInSurveys(models.Model):
     PID = models.AutoField(primary_key=True)
     VisitorID = models.ForeignKey(Visitor, verbose_name='Ребенок (посетитель)')  # Код ребенка
-    SurID = models.ForeignKey(SurveyList, verbose_name='Код исследования')  # Код исследования
+    SurID = models.ForeignKey(SurveyList, verbose_name='Исследования')  # Код исследования
 
     def __str__(self):
         return "%s %s" % (self.VisitorID.ChildName.encode('utf-8'), self.SurID)
