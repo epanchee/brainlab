@@ -17,7 +17,10 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.views.generic import RedirectView
 
+from brain_lab.views import VisitorAutocomplete
+
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'visitor-autocomplete/$', VisitorAutocomplete.as_view(), name='visitor-autocomplete'),
     url(r'^$', RedirectView.as_view(url='admin/', permanent=False), name='index'),
 ]

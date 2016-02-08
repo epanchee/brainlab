@@ -1,11 +1,12 @@
+from brain_lab.models import Visit
+from dal import autocomplete
 from django import forms
 
-from brain_lab.models import Visitor, Sibling
 
-
-class VisitorForm(forms.ModelForm):
+class VisitForm(forms.ModelForm):
     class Meta:
-        models = Visitor
+        model = Visit
         fields = '__all__'
-
-    Siblings = forms.ModelMultipleChoiceField(queryset=Sibling.objects.filter(visitor=2))
+        widgets = {
+            'VisitorID': autocomplete.ModelSelect2(url='visitor-autocomplete')
+        }

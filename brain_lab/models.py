@@ -1,10 +1,11 @@
 # encoding=utf-8
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 from multiselectfield import MultiSelectField
 
 
 class Sibling(models.Model):
-    name = models.CharField(max_length=100, verbose_name='Имя сиблинга')
+    name = models.CharField(max_length=100, verbose_name='ФИО сиблинга')
     genger = models.CharField(max_length=1, choices=((u'М', 'Мужской'), (u'Ж', 'Женский')), verbose_name='Пол сиблинга')
     birth = models.DateField(default=None, verbose_name='Дата рождения сиблинга')
     diag = models.TextField(blank=True, verbose_name='Диагноз сиблинга')
@@ -17,6 +18,7 @@ class Sibling(models.Model):
         verbose_name_plural = u"Сиблинги".encode('utf-8')
 
 
+# @python_2_unicode_compatible
 class Visitor(models.Model):
     VisitorID = models.AutoField(primary_key=True)  # Код ребенка
     FID1 = models.CharField(max_length=100, verbose_name='ФИО первого родителя')  # ФИО первого родителя
@@ -44,7 +46,7 @@ class Visitor(models.Model):
     PBAnnot = models.TextField(verbose_name='Описание заболеваний', blank=True)
     Diagnosis = models.TextField(verbose_name='Диагноз', blank=True)
 
-    Siblings = models.ManyToManyField(Sibling, blank=True, verbose_name='Сиблинги')  # TODO: to make a filter
+    Siblings = models.ManyToManyField(Sibling, blank=True, verbose_name='Сиблинги')
 
     Lang1 = models.IntegerField(verbose_name='Первый язык, на котором говорят в семье')  # Первый язык, на котором говорят в семье
     Perc1 = models.IntegerField(verbose_name='% слышимости первого языка')  # % слышимости первого языка
@@ -69,15 +71,15 @@ class Visitor(models.Model):
         (5, "Высшее образование (оконченное)"),
         (6, "Высшее образование (неоконченное)"),
         (7, "Ученая степень")))  # Квалификация 2го родителя
-    Q5 = models.BooleanField(verbose_name='Аустисты в семье (да/нет)')  # Аустисты в семье (да/нет)
+    Q5 = models.BooleanField(blank=True, verbose_name='Аустисты в семье (да/нет)')  # Аустисты в семье (да/нет)
     Q6 = MultiSelectField(blank=True, verbose_name='Кто?', choices=(
         (1, 'Мать'), (2, 'Отец'), (3, 'Отец'), (4, 'Брат'), (5, 'Сестра'), (6, 'Бабушка'),
         (7, 'Дедушка')))  # Кто?
-    Q7 = models.BooleanField(verbose_name='Сдвг в семье (да/нет)')  # Сдвг в семье (да/нет)
+    Q7 = models.BooleanField(blank=True, verbose_name='Сдвг в семье (да/нет)')  # Сдвг в семье (да/нет)
     Q8 = MultiSelectField(blank=True, verbose_name='Кто?', choices=(
         (1, 'Мать'), (2, 'Отец'), (3, 'Отец'), (4, 'Брат'), (5, 'Сестра'), (6, 'Бабушка'),
         (7, 'Дедушка')))  # Кто?
-    Q9 = models.BooleanField(verbose_name='Цветовая слепота в семье (да/нет)')  # Цветовая слепота в семье (да/нет)
+    Q9 = models.BooleanField(blank=True, verbose_name='Цветовая слепота в семье (да/нет)')  # Цветовая слепота в семье (да/нет)
     Q10 = MultiSelectField(blank=True, verbose_name='Кто?', choices=(
         (1, 'Мать'), (2, 'Отец'), (3, 'Отец'), (4, 'Брат'), (5, 'Сестра'), (6, 'Бабушка'),
         (7, 'Дедушка')))  # Кто?
