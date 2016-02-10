@@ -11,10 +11,7 @@ class VisitorAutocomplete(autocomplete.Select2QuerySetView):
 
         qs = Visitor.objects.all()
 
-        self.q = self.q.encode('utf-8')
-        print(self.q)
-
         if self.q:
-            qs = qs.filter(ChildName__istartswith=self.q)
+            qs = qs.filter(ChildName__icontains=self.q)
 
         return qs

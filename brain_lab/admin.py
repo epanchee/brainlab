@@ -12,7 +12,7 @@ class VisitorAdmin(admin.ModelAdmin):
 @admin.register(Visit)
 class VisitAdmin(admin.ModelAdmin):
     pass
-    # form = VisitForm
+    form = VisitForm
 
 
 @admin.register(RegResult, Sibling)
