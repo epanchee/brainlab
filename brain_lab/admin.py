@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from brain_lab.forms import VisitForm
-from brain_lab.models import Visitor, RegResult, PartInSurveys, Visit, Sibling
+from brain_lab.models import Visitor, RegResult, Visit, Sibling
 
 
 @admin.register(Visitor)
@@ -15,6 +15,6 @@ class VisitAdmin(admin.ModelAdmin):
     # form = VisitForm
 
 
-@admin.register(RegResult, PartInSurveys, Sibling)
+@admin.register(RegResult, Sibling)
 class FooAdmin(admin.ModelAdmin):
     pass
