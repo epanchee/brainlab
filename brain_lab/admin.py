@@ -11,7 +11,7 @@ class VisitorAdmin(admin.ModelAdmin):
 
 @admin.register(Visit)
 class VisitAdmin(admin.ModelAdmin):
-    pass
+    # readonly_fields = ('VisitAge',)
     form = VisitForm
 
 

@@ -157,15 +157,22 @@ class RegResult(models.Model):
 
 
 class Visit(models.Model):
+    class Meta:
+        verbose_name = u"Посещение".encode('utf-8')
+        verbose_name_plural = u"Посещения".encode('utf-8')
+
+    def __str__(self):
+        return "%s %s" % (self.VisitorID.ChildName.encode('utf-8'), self.VisitDate)
+
     VisitID = models.AutoField(primary_key=True)  # ID визита
     VisitorID = models.ForeignKey(Visitor, verbose_name='Ребенок (посетитель)')  # Код ребенка
     VisitDate = models.DateField(default=None, verbose_name='Дата визита')  # Дата визита
-    VisitAge = models.IntegerField(default=0, verbose_name='Возраст визита (в месяцах)')  # Возраст визита (в месяцах) TODO: to calculate age automatically
+    VisitAge = models.FloatField(blank=True, verbose_name='Возраст визита в месяцах (считается автоматически)')  # Возраст визита (в месяцах)
     InformAgreement = models.BooleanField(verbose_name='Информированное согласие')
     MedData = models.BooleanField(verbose_name='Медицинские сведения (карточка)')
     ET = MultiSelectField(blank=True, verbose_name='Eye tracking', choices=(
         (1, 'Popout'), (2, 'Visual search'), (3, 'Gaze following'), (4, 'Scenes'), (5, 'Pupil measure'),
-        (6, 'Gap-overlap')))  # Сделали EyeTracker
+        (6, 'Gap-overlap')))
     Photogrmetr = models.BooleanField(verbose_name='Фотограмметрия')
     Henotype = models.BooleanField(blank=True, verbose_name='Генотипирования')
     AntroData = MultiSelectField(blank=True, verbose_name='Антропометрические данные',
@@ -189,9 +196,8 @@ class Visit(models.Model):
     EndOfSurvey = models.BooleanField(verbose_name='Закончили ли обследование')  # Закончили ли обследование
     Feedback = models.BooleanField(verbose_name='Отдали обратную связь')  # Отдали обратную связь
 
-    def __str__(self):
-        return "%s %s" % (self.VisitorID.ChildName.encode('utf-8'), self.VisitDate)
-
-    class Meta:
-        verbose_name = u"Посещение".encode('utf-8')
-        verbose_name_plural = u"Посещения".encode('utf-8')
+    # def visit_age(self):
+    #     """Returns visit age"""
+    #     return datetime.date.today() - self.VisitorID.BirthDate
+    # visit_age.short_description = 'Возраст во время визита'
+    # property(visit_age)
