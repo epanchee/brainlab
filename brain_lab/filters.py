@@ -1,5 +1,6 @@
 # coding=utf-8
 import datetime
+
 from django.contrib import admin
 
 
@@ -27,13 +28,13 @@ class BirthDayFilter(admin.SimpleListFilter):
 
     def lookups(self, request, model_admin):
         return (
-            (i, str(i) + ' месяцев') for i in range(6, 61, 6)
+            (i, str(i) + ' месяцев') for i in [3, 5, 10, 14, 24, 36]
         )
 
     def queryset(self, request, queryset):
         if self.value():
             queryset = queryset.filter(
-                BirthDate__lte=datetime.datetime.now() - datetime.timedelta(int(self.value()) * 30))
+                BirthDate__gte=datetime.datetime.now() - datetime.timedelta(int(self.value()) * 30))
             return queryset.filter(
-                BirthDate__gt=datetime.datetime.now() - datetime.timedelta((int(self.value()) + 6) * 30))
+                BirthDate__lte=datetime.datetime.now() - datetime.timedelta(int(self.value()) * 30 - 20))
         return queryset
