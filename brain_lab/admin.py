@@ -21,6 +21,7 @@ class VisitAdmin(admin.ModelAdmin):
         'AntroData',
         'MRI', 'EEG', 'PCI', 'ADOS', 'Bailey', 'Inquirer', 'EndOfSurvey', 'Feedback')
     list_filter = (ExplorationsFilter,)
+    list_display = ('VisitorID', 'VisitDate',)
 
     def visit_age(self, instance):
         visitage = '-'
