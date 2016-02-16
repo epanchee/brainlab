@@ -95,6 +95,7 @@ class Visitor(models.Model):
     Surveys = MultiSelectField(blank=True, verbose_name='Участие в исследованиях', choices=(
         (1, 'Риск развити РАС '), (2, 'Риск развития СДВГ'), (3, 'Ишемический инсульт'), (4, 'Группа сравнения'),
         (5, 'Недоношенные'), (6, 'Дети с ГИПЦНС'), (7, 'Другие')))
+    IsInvited = models.BooleanField(verbose_name='Ребенок приглашен на исследования?')
 
     InnerID = models.IntegerField(blank=True, null=True, verbose_name='Шифр ребенка')
 
