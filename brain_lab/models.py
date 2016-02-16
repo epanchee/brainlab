@@ -30,7 +30,8 @@ class Visitor(models.Model):
     Email = models.EmailField(verbose_name='E-mail')
     ChildName = models.CharField(max_length=50, verbose_name='ФИО ребенка')  # ФИО ребенка
     BirthDate = models.DateField(verbose_name='Дата рождения ребенка')  # Дата рождения ребенка
-    CorrectedBirthDate = models.DateField(verbose_name='Скорретированная дата рождения (заполняется автоматически)', blank=True, null=True)
+    CorrectedBirthDate = models.DateField(verbose_name='Скорретированная дата рождения (заполняется автоматически)',
+                                          blank=True, null=True)
     ChildGenger = models.CharField(max_length=1, choices=((u'М', 'Мужской'), (u'Ж', 'Женский')),
                                    verbose_name='Пол ребенка')  # Пол ребенка
     Gestination = models.IntegerField(verbose_name='Срок беременности в неделях')  # Срок беременности в неделях
@@ -133,7 +134,9 @@ class Visit(models.Model):
     VisitID = models.AutoField(primary_key=True)  # ID визита
     VisitorID = models.ForeignKey(Visitor, verbose_name='Ребенок (посетитель)')  # Код ребенка
     VisitDate = models.DateField(default=None, verbose_name='Дата визита')  # Дата визита
-    VisitAge = models.FloatField(blank=True, editable=False, verbose_name='Возраст визита в месяцах (считается автоматически)')  # Возраст визита (в месяцах)
+    VisitAge = models.FloatField(blank=True, editable=False,
+                                 verbose_name='Возраст визита в месяцах (считается автоматически)')  # Возраст визита (в месяцах)
+    CorrectedVisitAge = models.FloatField(blank=True, editable=False, verbose_name='Скорректированный возраст визита в месяцах')
     InformAgreement = models.BooleanField(verbose_name='Информированное согласие')
     MedData = models.BooleanField(verbose_name='Медицинские сведения (карточка)')
     ET = MultiSelectField(blank=True, verbose_name='Eye tracking', choices=(

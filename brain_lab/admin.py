@@ -9,7 +9,7 @@ from brain_lab.models import Visitor, RegResult, Visit, Sibling
 @admin.register(Visitor)
 class VisitorAdmin(admin.ModelAdmin):
     filter_horizontal = ("Siblings",)
-    list_filter = (BirthDayFilter, CorrectedBDayFilter, ExplorationsFilter,)
+    list_filter = (BirthDayFilter, CorrectedBDayFilter, ExplorationsFilter, 'ChildGenger',)
     list_display = ('ChildName', 'ChildGenger', 'BirthDate', 'CorrectedBirthDate',)
 
     form = VisitorForm
@@ -17,9 +17,9 @@ class VisitorAdmin(admin.ModelAdmin):
 
 @admin.register(Visit)
 class VisitAdmin(admin.ModelAdmin):
-    readonly_fields = ('visit_age',)
+    readonly_fields = ('visit_age', 'corrected_age', )
     fields = (
-        'VisitorID', 'VisitDate', 'visit_age', 'InformAgreement', 'MedData', 'ET', 'Photogrmetr', 'Henotype',
+        'VisitorID', 'VisitDate', 'visit_age', 'corrected_age', 'InformAgreement', 'MedData', 'ET', 'Photogrmetr', 'Henotype',
         'AntroData',
         'MRI', 'EEG', 'PCI', 'ADOS', 'Bailey', 'Inquirer', 'EndOfSurvey', 'Feedback')
     list_display = ('VisitorID', 'VisitDate',)
@@ -29,8 +29,14 @@ class VisitAdmin(admin.ModelAdmin):
         if instance.VisitAge:
             visitage = "%d месяцев, %d дней" % (instance.VisitAge / 30, instance.VisitAge % 30)
         return visitage
-
     visit_age.short_description = 'Возраст во время визита'
+
+    def corrected_age(self, instance):
+        corrected_age = '-'
+        if instance.CorrectedVisitAge:
+            corrected_age = "%d месяцев, %d дней" % (instance.CorrectedVisitAge / 30, instance.CorrectedVisitAge % 30)
+        return corrected_age
+    corrected_age.short_description = 'Скорректированный возраст'
 
     form = VisitForm
 

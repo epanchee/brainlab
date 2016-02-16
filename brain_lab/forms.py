@@ -17,6 +17,7 @@ class VisitForm(forms.ModelForm):
 
     def save(self, commit=True):
         self.instance.VisitAge = (self.instance.VisitDate - self.instance.VisitorID.BirthDate).days
+        self.instance.CorrectedVisitAge = (self.instance.VisitDate - self.instance.VisitorID.CorrectedBirthDate).days
         return super(VisitForm, self).save(commit)
 
 
