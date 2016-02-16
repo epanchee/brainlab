@@ -1,7 +1,10 @@
+# coding=utf-8
+import datetime
 from dal import autocomplete
 from django import forms
+from brain_lab.models import Visit, Visitor
 
-from brain_lab.models import Visit
+NORMAL_GESTATION = 37  # нормальный срок беременности (в неделях)
 
 
 class VisitForm(forms.ModelForm):
@@ -15,3 +18,17 @@ class VisitForm(forms.ModelForm):
     def save(self, commit=True):
         self.instance.VisitAge = (self.instance.VisitDate - self.instance.VisitorID.BirthDate).days
         return super(VisitForm, self).save(commit)
+
+
+class VisitorForm(forms.ModelForm):
+    class Meta:
+        model = Visitor
+        fields = '__all__'
+
+    def save(self, commit=True):
+        if self.instance.Gestination < 37:
+            self.instance.CorrectedBirthDate = self.instance.BirthDate + datetime.timedelta(
+                (NORMAL_GESTATION - self.instance.Gestination) * 7)
+        else:
+            self.instance.CorrectedBirthDate = self.instance.BirthDate
+        return super(VisitorForm, self).save(commit)

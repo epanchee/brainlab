@@ -30,6 +30,7 @@ class Visitor(models.Model):
     Email = models.EmailField(verbose_name='E-mail')
     ChildName = models.CharField(max_length=50, verbose_name='ФИО ребенка')  # ФИО ребенка
     BirthDate = models.DateField(verbose_name='Дата рождения ребенка')  # Дата рождения ребенка
+    CorrectedBirthDate = models.DateField(verbose_name='Скорретированная дата рождения', blank=True, null=True)
     ChildGenger = models.CharField(max_length=1, choices=((u'М', 'Мужской'), (u'Ж', 'Женский')),
                                    verbose_name='Пол ребенка')  # Пол ребенка
     Gestination = models.IntegerField(verbose_name='Срок беременности в неделях')  # Срок беременности в неделях

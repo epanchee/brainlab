@@ -2,7 +2,7 @@
 from django.contrib import admin
 
 from brain_lab.filters import ExplorationsFilter, BirthDayFilter
-from brain_lab.forms import VisitForm
+from brain_lab.forms import VisitForm, VisitorForm
 from brain_lab.models import Visitor, RegResult, Visit, Sibling
 
 
@@ -11,6 +11,8 @@ class VisitorAdmin(admin.ModelAdmin):
     filter_horizontal = ("Siblings",)
     list_filter = (BirthDayFilter,)
     list_display = ('ChildName', 'ChildGenger', 'BirthDate', )
+
+    form = VisitorForm
 
 
 @admin.register(Visit)
