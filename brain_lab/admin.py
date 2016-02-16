@@ -1,7 +1,7 @@
 # coding=utf-8
 from django.contrib import admin
 
-from brain_lab.filters import ExplorationsFilter, BirthDayFilter, CorrectedBDayFilter
+from brain_lab.filters import ExplorationsFilter, BirthDayFilter, CorrectedBDayFilter, HasSiblingsFilter
 from brain_lab.forms import VisitForm, VisitorForm
 from brain_lab.models import Visitor, RegResult, Visit, Sibling
 
@@ -9,7 +9,7 @@ from brain_lab.models import Visitor, RegResult, Visit, Sibling
 @admin.register(Visitor)
 class VisitorAdmin(admin.ModelAdmin):
     filter_horizontal = ("Siblings",)
-    list_filter = (BirthDayFilter, CorrectedBDayFilter, ExplorationsFilter, 'ChildGenger', 'IsInvited',)
+    list_filter = (BirthDayFilter, CorrectedBDayFilter, ExplorationsFilter, HasSiblingsFilter, 'ChildGenger', 'IsInvited',)
     list_display = ('ChildName', 'ChildGenger', 'BirthDate', 'CorrectedBirthDate', 'IsInvited',)
 
     form = VisitorForm

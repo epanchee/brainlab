@@ -52,3 +52,21 @@ class CorrectedBDayFilter(BirthDayFilter):
             return queryset.filter(
                 CorrectedBirthDate__lte=datetime.datetime.now() - datetime.timedelta(int(self.value()) * 30 - 20))
         return queryset
+
+
+class HasSiblingsFilter(admin.SimpleListFilter):
+    title = 'Фильтр по наличию сиблингов'
+
+    parameter_name = 'Siblings'
+
+    def lookups(self, request, model_admin):
+        return (
+            (1, 'Есть'), (2, 'Нет')
+        )
+
+    def queryset(self, request, queryset):
+        if self.value() == u'1':
+            return queryset.exclude(Siblings__isnull=True)
+        if self.value() == u'2':
+            return queryset.exclude(Siblings__isnull=False)
+        return queryset
