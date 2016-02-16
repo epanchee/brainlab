@@ -1,6 +1,5 @@
 # coding=utf-8
 import datetime
-
 from django.contrib import admin
 
 
@@ -21,6 +20,7 @@ class ExplorationsFilter(admin.SimpleListFilter):
         return queryset
 
 
+# TODO: нужен ли этот фильтр, после того, как добавлен фильтр по скорректированной др?
 class BirthDayFilter(admin.SimpleListFilter):
     title = 'Фильтр по дате рождения'
 
@@ -37,4 +37,18 @@ class BirthDayFilter(admin.SimpleListFilter):
                 BirthDate__gte=datetime.datetime.now() - datetime.timedelta(int(self.value()) * 30))
             return queryset.filter(
                 BirthDate__lte=datetime.datetime.now() - datetime.timedelta(int(self.value()) * 30 - 20))
+        return queryset
+
+
+class CorrectedBDayFilter(BirthDayFilter):
+    title = 'Фильтр по скорректированной дате рождения'
+
+    parameter_name = 'CorrectedBirthDate'
+
+    def queryset(self, request, queryset):
+        if self.value():
+            queryset = queryset.filter(
+                CorrectedBirthDate__gte=datetime.datetime.now() - datetime.timedelta(int(self.value()) * 30))
+            return queryset.filter(
+                CorrectedBirthDate__lte=datetime.datetime.now() - datetime.timedelta(int(self.value()) * 30 - 20))
         return queryset
