@@ -7,17 +7,17 @@ from django.contrib import admin
 class ExplorationsFilter(admin.SimpleListFilter):
     title = 'Фильтр по исследованиям'
 
-    parameter_name = 'ET'
+    parameter_name = 'Surveys'
 
     def lookups(self, request, model_admin):
         return (
-            (1, 'Popout'), (2, 'Visual search'), (3, 'Gaze following'), (4, 'Scenes'), (5, 'Pupil measure'),
-            (6, 'Gap-overlap')
+            (1, 'Риск развити РАС '), (2, 'Риск развития СДВГ'), (3, 'Ишемический инсульт'), (4, 'Группа сравнения'),
+            (5, 'Недоношенные'), (6, 'Дети с ГИПЦНС'), (7, 'Другие')
         )
 
     def queryset(self, request, queryset):
         if self.value():
-            return queryset.filter(ET__contains=self.value())
+            return queryset.filter(Surveys__contains=self.value())
         return queryset
 
 

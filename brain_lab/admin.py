@@ -9,8 +9,8 @@ from brain_lab.models import Visitor, RegResult, Visit, Sibling
 @admin.register(Visitor)
 class VisitorAdmin(admin.ModelAdmin):
     filter_horizontal = ("Siblings",)
-    list_filter = (BirthDayFilter,)
-    list_display = ('ChildName', 'ChildGenger', 'BirthDate', )
+    list_filter = (BirthDayFilter, ExplorationsFilter,)
+    list_display = ('ChildName', 'ChildGenger', 'BirthDate', 'CorrectedBirthDate',)
 
     form = VisitorForm
 
@@ -22,7 +22,6 @@ class VisitAdmin(admin.ModelAdmin):
         'VisitorID', 'VisitDate', 'visit_age', 'InformAgreement', 'MedData', 'ET', 'Photogrmetr', 'Henotype',
         'AntroData',
         'MRI', 'EEG', 'PCI', 'ADOS', 'Bailey', 'Inquirer', 'EndOfSurvey', 'Feedback')
-    list_filter = (ExplorationsFilter,)
     list_display = ('VisitorID', 'VisitDate',)
 
     def visit_age(self, instance):

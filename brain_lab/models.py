@@ -144,7 +144,7 @@ class Visit(models.Model):
     AntroData = MultiSelectField(blank=True, verbose_name='Антропометрические данные',
                                  choices=((1, 'Измерение головы'), (2, 'Вес, рост')))
     MRI = models.BooleanField(verbose_name='Сделали МРТ?')
-    EEG = models.BooleanField(verbose_name='Сделали ЭЭГ')  # Сделали ЭЭГ
+    EEG = models.BooleanField(verbose_name='Сделали ЭЭГ?')  # Сделали ЭЭГ
     PCI = models.BooleanField(verbose_name='PCI')
     ADOS = models.BooleanField(verbose_name='ADOS')
     Bailey = MultiSelectField(blank=True, verbose_name='Бэйли',
