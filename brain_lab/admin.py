@@ -22,7 +22,8 @@ class VisitAdmin(admin.ModelAdmin):
         'VisitorID', 'VisitDate', 'visit_age', 'corrected_age', 'InformAgreement', 'MedData', 'ET', 'Photogrmetr', 'Henotype',
         'AntroData',
         'MRI', 'EEG', 'PCI', 'ADOS', 'Bailey', 'Inquirer', 'EndOfSurvey', 'Feedback')
-    list_display = ('VisitorID', 'VisitDate',)
+    list_display = ('VisitorID', 'VisitDate', 'EndOfSurvey', 'Feedback',)
+    list_filter = ('EndOfSurvey', 'Feedback',)
 
     def visit_age(self, instance):
         visitage = '-'
