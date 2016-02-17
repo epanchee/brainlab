@@ -98,7 +98,7 @@ class Visitor(models.Model):
         (5, 'Недоношенные'), (6, 'Дети с ГИПЦНС'), (7, 'Другие')))
     IsInvited = models.BooleanField(blank=True, default=False, verbose_name='Ребенок приглашен на исследования?')
 
-    InnerID = models.IntegerField(blank=True, null=True, verbose_name='Шифр ребенка')
+    InnerID = models.CharField(max_length=20, blank=True, null=True, verbose_name='Шифр ребенка')
 
     def __unicode__(self):
         return self.ChildName
