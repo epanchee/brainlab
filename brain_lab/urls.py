@@ -17,10 +17,12 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.views.generic import RedirectView
 
+from brain_lab import views
 from brain_lab.views import *
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^time_to_servey/$', views.time_to_servey, name='time_to_servey'),
     url(r'visitor-autocomplete/$', VisitorAutocomplete.as_view(), name='visitor-autocomplete'),
     url(r'^$', RedirectView.as_view(url='admin/', permanent=False), name='index'),
 ]

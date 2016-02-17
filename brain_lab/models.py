@@ -32,6 +32,7 @@ class Visitor(models.Model):
     BirthDate = models.DateField(verbose_name='Дата рождения ребенка')  # Дата рождения ребенка
     CorrectedBirthDate = models.DateField(verbose_name='Скорретированная дата рождения (заполняется автоматически)',
                                           blank=True, null=True)
+    LastVisit = models.DateField(verbose_name='Дата последнего посещения (заполняется автоматически)', blank=True, null=True)
     ChildGenger = models.CharField(max_length=1, choices=((u'М', 'Мужской'), (u'Ж', 'Женский')),
                                    verbose_name='Пол ребенка')  # Пол ребенка
     Gestination = models.IntegerField(verbose_name='Срок беременности в неделях')  # Срок беременности в неделях

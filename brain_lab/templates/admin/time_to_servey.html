@@ -1,0 +1,8 @@
+{% extends 'admin/base_site.html' %}
+{% block extrastyle %}{{ block.super }}{% endblock %}
+
+{% block content %}
+    {% for visitor in visitors %}
+        {{ visitor.ChildName }}<br/>
+    {% endfor %}
+{% endblock %}
