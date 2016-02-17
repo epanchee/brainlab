@@ -138,7 +138,7 @@ class Visit(models.Model):
     VisitDate = models.DateField(default=None, verbose_name='Дата визита')  # Дата визита
     VisitAge = models.FloatField(blank=True, editable=False,
                                  verbose_name='Возраст визита в месяцах (считается автоматически)')  # Возраст визита (в месяцах)
-    CorrectedVisitAge = models.FloatField(default=None, blank=True, editable=False, verbose_name='Скорректированный возраст визита в месяцах')
+    CorrectedVisitAge = models.FloatField(null=True, default=None, blank=True, editable=False, verbose_name='Скорректированный возраст визита в месяцах')
     InformAgreement = models.BooleanField(verbose_name='Информированное согласие')
     MedData = models.BooleanField(verbose_name='Медицинские сведения (карточка)')
     ET = MultiSelectField(blank=True, verbose_name='Eye tracking', choices=(
