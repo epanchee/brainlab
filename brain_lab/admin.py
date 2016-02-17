@@ -29,6 +29,7 @@ class VisitAdmin(admin.ModelAdmin):
         visitage = '-'
         if instance.VisitAge:
             visitage = "%d месяцев, %d дней" % (instance.VisitAge / 30, instance.VisitAge % 30)
+            # visitage = "%d дней" % instance.VisitAge
         return visitage
     visit_age.short_description = 'Возраст во время визита'
 
@@ -36,6 +37,7 @@ class VisitAdmin(admin.ModelAdmin):
         corrected_age = '-'
         if instance.CorrectedVisitAge:
             corrected_age = "%d месяцев, %d дней" % (instance.CorrectedVisitAge / 30, instance.CorrectedVisitAge % 30)
+            # corrected_age = "%d дней" % instance.CorrectedVisitAge
         return corrected_age
     corrected_age.short_description = 'Скорректированный возраст'
 
