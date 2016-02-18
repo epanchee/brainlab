@@ -142,8 +142,8 @@ class Visit(models.Model):
     InformAgreement = models.BooleanField(verbose_name='Информированное согласие')
     MedData = models.BooleanField(verbose_name='Медицинские сведения (карточка)')
     ET = MultiSelectField(blank=True, verbose_name='Eye tracking', choices=(
-        (1, 'Popout'), (2, 'Visual search'), (3, 'Gaze following'), (4, 'Scenes'), (5, 'Pupil measure'),
-        (6, 'Gap-overlap')))
+        (1, 'Popout scenes'), (2, 'Visual search'), (3, 'Gaze following'), (4, 'Pupil measure'),
+        (5, 'Gap-overlap')))
     Photogrmetr = models.BooleanField(verbose_name='Фотограмметрия')
     Henotype = models.BooleanField(blank=True, verbose_name='Генотипирования')
     AntroData = MultiSelectField(blank=True, verbose_name='Антропометрические данные',

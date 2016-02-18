@@ -21,7 +21,6 @@ class ExplorationsFilter(admin.SimpleListFilter):
         return queryset
 
 
-# TODO: нужен ли этот фильтр, после того, как добавлен фильтр по скорректированной др?
 class BirthDayFilter(admin.SimpleListFilter):
     title = 'Фильтр по дате рождения'
 
