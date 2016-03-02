@@ -17,7 +17,7 @@ class VisitorAdmin(admin.ModelAdmin):
 
 @admin.register(Visit)
 class VisitAdmin(admin.ModelAdmin):
-    readonly_fields = ('visit_age', 'corrected_age', )
+    readonly_fields = ('visit_age', 'corrected_age',)
     fields = (
         'VisitorID', 'VisitDate', 'visit_age', 'corrected_age', 'InformAgreement', 'MedData', 'ET', 'Photogrmetr', 'Henotype',
         'AntroData',
@@ -27,9 +27,8 @@ class VisitAdmin(admin.ModelAdmin):
 
     def visit_age(self, instance):
         visitage = '-'
-        if instance.VisitAge:
-            visitage = "%d месяцев, %d дней" % (instance.VisitAge / 30, instance.VisitAge % 30)
-            # visitage = "%d дней" % instance.VisitAge
+        if instance.NormalizedVisitAge:
+            visitage = "%d месяцев, %d дней" % (instance.NormalizedVisitAge / 30, instance.NormalizedVisitAge % 30)
         return visitage
     visit_age.short_description = 'Возраст во время визита'
 
@@ -37,7 +36,6 @@ class VisitAdmin(admin.ModelAdmin):
         corrected_age = '-'
         if instance.CorrectedVisitAge:
             corrected_age = "%d месяцев, %d дней" % (instance.CorrectedVisitAge / 30, instance.CorrectedVisitAge % 30)
-            # corrected_age = "%d дней" % instance.CorrectedVisitAge
         return corrected_age
     corrected_age.short_description = 'Скорректированный возраст'
 

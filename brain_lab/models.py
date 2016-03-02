@@ -32,7 +32,8 @@ class Visitor(models.Model):
     BirthDate = models.DateField(verbose_name='Дата рождения ребенка')  # Дата рождения ребенка
     CorrectedBirthDate = models.DateField(verbose_name='Скорретированная дата рождения (заполняется автоматически)',
                                           blank=True, null=True)
-    LastVisit = models.DateField(verbose_name='Дата последнего посещения (заполняется автоматически)', blank=True, null=True)
+    LastVisit = models.DateField(verbose_name='Дата последнего посещения (заполняется автоматически)', blank=True,
+                                 null=True)
     ChildGenger = models.CharField(max_length=1, choices=((u'М', 'Мужской'), (u'Ж', 'Женский')),
                                    verbose_name='Пол ребенка')  # Пол ребенка
     Gestination = models.IntegerField(verbose_name='Срок беременности в неделях')  # Срок беременности в неделях
@@ -136,9 +137,10 @@ class Visit(models.Model):
     VisitID = models.AutoField(primary_key=True)  # ID визита
     VisitorID = models.ForeignKey(Visitor, verbose_name='Ребенок (посетитель)')  # Код ребенка
     VisitDate = models.DateField(default=None, verbose_name='Дата визита')  # Дата визита
-    VisitAge = models.FloatField(blank=True, editable=False,
-                                 verbose_name='Возраст визита в месяцах (считается автоматически)')  # Возраст визита (в месяцах)
-    CorrectedVisitAge = models.FloatField(null=True, default=None, blank=True, editable=False, verbose_name='Скорректированный возраст визита в месяцах')
+    NormalizedVisitAge = models.IntegerField(blank=True, default=0,
+                                             verbose_name="Нормализованный возраст визита")  # нормализованный в виде месяц = 30 дней => год = 360 дней
+    CorrectedVisitAge = models.FloatField(null=True, default=None, blank=True, editable=False,
+                                          verbose_name='Скорректированный возраст визита в месяцах')
     InformAgreement = models.BooleanField(verbose_name='Информированное согласие')
     MedData = models.BooleanField(verbose_name='Медицинские сведения (карточка)')
     ET = MultiSelectField(blank=True, verbose_name='Eye tracking', choices=(
