@@ -31,7 +31,7 @@ class Visitor(models.Model):
     ChildName = models.CharField(max_length=50, verbose_name='ФИО ребенка')  # ФИО ребенка
     BirthDate = models.DateField(verbose_name='Дата рождения ребенка')  # Дата рождения ребенка
     CorrectedBirthDate = models.DateField(verbose_name='Скорретированная дата рождения (заполняется автоматически)',
-                                          blank=True, null=True)
+                                          blank=True, null=True, editable=False)
     LastVisit = models.DateField(verbose_name='Дата последнего посещения (заполняется автоматически)', blank=True,
                                  null=True)
     ChildGenger = models.CharField(max_length=1, choices=((u'М', 'Мужской'), (u'Ж', 'Женский')),

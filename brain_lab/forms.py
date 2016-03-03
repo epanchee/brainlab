@@ -9,10 +9,11 @@ from brain_lab.models import Visit, Visitor
 NORMAL_GESTATION = 37  # нормальный срок беременности (в неделях)
 
 
-def get_norm_visit_age(birthdate, visitdate):
+def get_norm_visit_age(birthdate, visitdate, gestination=37):
     days = 0
     if birthdate and visitdate:
-        days = (visitdate.year - birthdate.year) * 360 + (visitdate.month - birthdate.month) * 30 + (visitdate.day - birthdate.day)
+        days = (visitdate.year - birthdate.year) * 360 + (visitdate.month - birthdate.month) * 30 + (
+            visitdate.day - birthdate.day) - (NORMAL_GESTATION - gestination) * 7
     return days
 
 
@@ -25,7 +26,9 @@ class VisitForm(forms.ModelForm):
         }
 
     def save(self, commit=True):
-        self.instance.CorrectedVisitAge = get_norm_visit_age(self.instance.VisitorID.CorrectedBirthDate, self.instance.VisitDate)
+        self.instance.CorrectedVisitAge = get_norm_visit_age(self.instance.VisitorID.BirthDate,
+                                                             self.instance.VisitDate,
+                                                             self.instance.VisitorID.Gestination)
         self.instance.VisitAge = get_norm_visit_age(self.instance.VisitorID.BirthDate, self.instance.VisitDate)
 
         if self.instance.VisitorID.LastVisit:
