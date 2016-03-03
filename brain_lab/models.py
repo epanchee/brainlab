@@ -137,7 +137,7 @@ class Visit(models.Model):
     VisitID = models.AutoField(primary_key=True)  # ID визита
     VisitorID = models.ForeignKey(Visitor, verbose_name='Ребенок (посетитель)')  # Код ребенка
     VisitDate = models.DateField(default=None, verbose_name='Дата визита')  # Дата визита
-    NormalizedVisitAge = models.IntegerField(blank=True, default=0,
+    VisitAge = models.IntegerField(blank=True, default=0,
                                              verbose_name="Нормализованный возраст визита")  # нормализованный в виде месяц = 30 дней => год = 360 дней
     CorrectedVisitAge = models.FloatField(null=True, default=None, blank=True, editable=False,
                                           verbose_name='Скорректированный возраст визита в месяцах')

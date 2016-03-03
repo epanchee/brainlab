@@ -3,6 +3,6 @@
 
 {% block content %}
     {% for visitor in visitors %}
-        {{ visitor.ChildName }}<br/>
+        <a href="#">{{ visitor.ChildName }} {{ visitor.LastVisit }}</a><br/>
     {% endfor %}
 {% endblock %}

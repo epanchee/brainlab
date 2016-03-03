@@ -33,9 +33,10 @@ class BirthDayFilter(admin.SimpleListFilter):
 
     def queryset(self, request, queryset):
         if self.value():
-            return queryset.filter(
-                BirthDate__gte=datetime.datetime.now() - datetime.timedelta(int(self.value()) * 30)).filter(
-                BirthDate__lte=datetime.datetime.now() - datetime.timedelta(int(self.value()) * 30 - 20))
+            #TODO: разобраться с фильтрами
+            return queryset\
+                .filter(BirthDate__lte=datetime.datetime.now() - datetime.timedelta(int(self.value()) * 30 - 7)) \
+                .filter(BirthDate__gte=datetime.datetime.now() - datetime.timedelta(int(self.value()) * 30 + 7))
         return queryset
 
 

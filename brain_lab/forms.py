@@ -10,7 +10,9 @@ NORMAL_GESTATION = 37  # нормальный срок беременности 
 
 
 def get_norm_visit_age(birthdate, visitdate):
-    days = (visitdate.year - birthdate.year) * 360 + (visitdate.month - birthdate.month) * 30 + (visitdate.day - birthdate.day)
+    days = 0
+    if birthdate and visitdate:
+        days = (visitdate.year - birthdate.year) * 360 + (visitdate.month - birthdate.month) * 30 + (visitdate.day - birthdate.day)
     return days
 
 
@@ -24,14 +26,13 @@ class VisitForm(forms.ModelForm):
 
     def save(self, commit=True):
         self.instance.CorrectedVisitAge = get_norm_visit_age(self.instance.VisitorID.CorrectedBirthDate, self.instance.VisitDate)
-        self.instance.NormalizedVisitAge = get_norm_visit_age(self.instance.VisitorID.BirthDate, self.instance.VisitDate)
+        self.instance.VisitAge = get_norm_visit_age(self.instance.VisitorID.BirthDate, self.instance.VisitDate)
 
         if self.instance.VisitorID.LastVisit:
             if self.instance.VisitorID.LastVisit <= self.instance.VisitDate:
                 self.instance.VisitorID.LastVisit = self.instance.VisitDate
         else:
             self.instance.VisitorID.LastVisit = self.instance.VisitDate
-            print(self.instance.VisitorID.LastVisit)
         self.instance.VisitorID.save(commit)
 
         return super(VisitForm, self).save(commit)

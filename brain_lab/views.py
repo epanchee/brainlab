@@ -28,15 +28,12 @@ def time_to_servey(request):
     request_context = RequestContext(request)
 
     visitors = []
-    print(Visitor.objects.filter(VisitorID=9)[0].CorrectedBirthDate)
-    print(Visitor.objects.filter(VisitorID=9)[0].CorrectedBirthDate + datetime.timedelta(3 * 30))
-    print(Visitor.objects.filter(VisitorID=9)[0].LastVisit)
     for months in [3, 5, 10, 14, 24, 36]:
         current = []
         interval = {'start': datetime.datetime.now() - datetime.timedelta(months * 30),
                     'end': datetime.datetime.now() - datetime.timedelta(months * 30 - 20)}
 
-        # TODO: разбраться до конца с фильтром
+        # print(interval['start'], interval['end'])
         current = Visitor.objects \
             .filter(CorrectedBirthDate__gte=interval['start']) \
             .filter(CorrectedBirthDate__lte=interval['end']) \
