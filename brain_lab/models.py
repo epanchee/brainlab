@@ -96,7 +96,8 @@ class Visitor(models.Model):
         (7, 'Дедушка')))  # Кто?
     Surveys = MultiSelectField(blank=True, verbose_name='Участие в исследованиях', choices=(
         (1, 'Риск развити РАС '), (2, 'Риск развития СДВГ'), (3, 'Ишемический инсульт'), (4, 'Группа сравнения'),
-        (5, 'Недоношенные'), (6, 'Дети с ГИПЦНС'), (7, 'Другие')))
+        (5, 'Недоношенные, отслеживание по паспортному возрасту'),
+        (6, 'Недоношенные, отслеживание по скорректированному возрасту'), (7, 'Дети с ГИПЦНС'), (8, 'Другие')))
     IsInvited = models.BooleanField(blank=True, default=False, verbose_name='Ребенок приглашен на исследования?')
 
     InnerID = models.CharField(max_length=20, blank=True, null=True, verbose_name='Шифр ребенка')
@@ -138,7 +139,7 @@ class Visit(models.Model):
     VisitorID = models.ForeignKey(Visitor, verbose_name='Ребенок (посетитель)')  # Код ребенка
     VisitDate = models.DateField(default=None, verbose_name='Дата визита')  # Дата визита
     VisitAge = models.IntegerField(blank=True, default=0,
-                                             verbose_name="Нормализованный возраст визита")  # нормализованный в виде месяц = 30 дней => год = 360 дней
+                                   verbose_name="Нормализованный возраст визита")  # нормализованный в виде месяц = 30 дней => год = 360 дней
     CorrectedVisitAge = models.FloatField(null=True, default=None, blank=True, editable=False,
                                           verbose_name='Скорректированный возраст визита в месяцах')
     InformAgreement = models.BooleanField(verbose_name='Информированное согласие')
