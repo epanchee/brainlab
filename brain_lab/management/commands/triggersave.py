@@ -21,4 +21,4 @@ class Command(BaseCommand):
             except:
                 raise CommandError('Something went wrong with %s' % visitor.ChildName)
 
-            self.stdout.write(self.style.SUCCESS('Successfully saved visitor "%d %s' % (visitor.VisitorID, visitor.ChildName)))
+            self.stdout.write(self.style.SUCCESS('Successfully saved visitor %d "%s"' % (visitor.VisitorID, visitor.ChildName)))

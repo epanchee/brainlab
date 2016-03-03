@@ -1,6 +1,5 @@
 # coding=utf-8
 import datetime
-
 from django.contrib import admin
 
 
@@ -33,10 +32,9 @@ class BirthDayFilter(admin.SimpleListFilter):
 
     def queryset(self, request, queryset):
         if self.value():
-            #TODO: разобраться с фильтрами
-            return queryset\
-                .filter(BirthDate__lte=datetime.datetime.now() - datetime.timedelta(int(self.value()) * 30 - 7)) \
-                .filter(BirthDate__gte=datetime.datetime.now() - datetime.timedelta(int(self.value()) * 30 + 7))
+            return queryset \
+                .filter(BirthDate__lte=datetime.datetime.now() - datetime.timedelta(int(self.value()) * 30) - datetime.timedelta(7)) \
+                .filter(BirthDate__gte=datetime.datetime.now() - datetime.timedelta(int(self.value()) * 30) + datetime.timedelta(7))
         return queryset
 
 
@@ -52,9 +50,9 @@ class CorrectedBDayFilter(admin.SimpleListFilter):
 
     def queryset(self, request, queryset):
         if self.value():
-            return queryset.filter(
-                CorrectedBirthDate__gte=datetime.datetime.now() - datetime.timedelta(int(self.value()) * 30)).filter(
-                CorrectedBirthDate__lte=datetime.datetime.now() - datetime.timedelta(int(self.value()) * 30 - 20))
+            return queryset \
+                .filter(CorrectedBirthDate__gte=datetime.datetime.now() - datetime.timedelta(int(self.value()) * 30) - datetime.timedelta(7)) \
+                .filter(CorrectedBirthDate__lte=datetime.datetime.now() - datetime.timedelta(int(self.value()) * 30) + datetime.timedelta(7))
         return queryset
 
 
