@@ -1,42 +1,59 @@
 # coding=utf-8
+from datetime import datetime
+
 from django.contrib import admin
 
 from brain_lab.filters import ExplorationsFilter, BirthDayFilter, CorrectedBDayFilter, HasSiblingsFilter
-from brain_lab.forms import VisitForm, VisitorForm
+from brain_lab.forms import VisitForm, VisitorForm, get_norm_visit_age
 from brain_lab.models import Visitor, RegResult, Visit, Sibling
+
+
+def tostring_age(age):
+    str_age = '-'
+    if str_age:
+        str_age = "%d месяцев, %d дней" % (age / 30, age % 30)
+    return str_age
 
 
 @admin.register(Visitor)
 class VisitorAdmin(admin.ModelAdmin):
     filter_horizontal = ("Siblings",)
-    list_filter = (BirthDayFilter, CorrectedBDayFilter, ExplorationsFilter, HasSiblingsFilter, 'ChildGenger', 'IsInvited',)
+    readonly_fields = ("passport_age", "corrected_age",)
+    list_filter = (
+        BirthDayFilter, CorrectedBDayFilter, ExplorationsFilter, HasSiblingsFilter, 'ChildGenger', 'IsInvited',
+    )
     list_display = ('ChildName', 'ChildGenger', 'BirthDate', 'CorrectedBirthDate', 'IsInvited',)
 
     form = VisitorForm
+
+    def passport_age(self, instance):
+        age = get_norm_visit_age(instance.BirthDate, datetime.now())
+        return tostring_age(age)
+    passport_age.short_description = 'Возраст по паспорту'
+
+    def corrected_age(self, instance):
+        age = get_norm_visit_age(instance.BirthDate, datetime.now(), instance.Gestination)
+        return tostring_age(age)
+    corrected_age.short_description = 'Скорректированный возраст'
 
 
 @admin.register(Visit)
 class VisitAdmin(admin.ModelAdmin):
     readonly_fields = ('visit_age', 'corrected_age',)
     fields = (
-        'VisitorID', 'VisitDate', 'visit_age', 'corrected_age', 'InformAgreement', 'MedData', 'ET', 'Photogrmetr', 'Henotype',
+        'VisitorID', 'VisitDate', 'visit_age', 'corrected_age', 'InformAgreement', 'MedData', 'ET', 'Photogrmetr',
+        'Henotype',
         'AntroData',
         'MRI', 'EEG', 'Neuro', 'PCI', 'ADOS', 'Bailey', 'Inquirer', 'EndOfSurvey', 'Feedback')
     list_display = ('VisitorID', 'VisitDate', 'EndOfSurvey', 'Feedback',)
     list_filter = ('EndOfSurvey', 'Feedback',)
 
     def visit_age(self, instance):
-        visitage = '-'
-        if instance.VisitAge:
-            visitage = "%d месяцев, %d дней" % (instance.VisitAge / 30, instance.VisitAge % 30)
-        return visitage
+        return tostring_age(instance.VisitAge)
     visit_age.short_description = 'Возраст во время визита'
 
     def corrected_age(self, instance):
-        corrected_age = '-'
-        if instance.CorrectedVisitAge:
-            corrected_age = "%d месяцев, %d дней" % (instance.CorrectedVisitAge / 30, instance.CorrectedVisitAge % 30)
-        return corrected_age
+        return tostring_age(instance.CorrectedVisitAge)
     corrected_age.short_description = 'Скорректированный возраст во время визита'
 
     form = VisitForm
