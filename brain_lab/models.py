@@ -34,6 +34,7 @@ class Visitor(models.Model):
                                           blank=True, null=True, editable=False)
     LastVisit = models.DateField(verbose_name='Дата последнего посещения (заполняется автоматически)', blank=True,
                                  null=True)
+    Comment = models.TextField(verbose_name='Комментарии', blank=True)
     ChildGenger = models.CharField(max_length=1, choices=((u'М', 'Мужской'), (u'Ж', 'Женский')),
                                    verbose_name='Пол ребенка')  # Пол ребенка
     Gestination = models.IntegerField(verbose_name='Срок беременности в неделях')  # Срок беременности в неделях
@@ -153,7 +154,7 @@ class Visit(models.Model):
                                  choices=((1, 'Измерение головы'), (2, 'Вес, рост')))
     MRI = models.BooleanField(verbose_name='Сделали МРТ?')
     EEG = models.BooleanField(verbose_name='Сделали ЭЭГ?')  # Сделали ЭЭГ
-    Neuro = models.BooleanField(verbose_name='Прошли осмотр у невролога?')
+    Neuro = models.BooleanField(verbose_name='Прошли осмотр у невролога?', default=False)
     PCI = models.BooleanField(verbose_name='PCI')
     ADOS = models.BooleanField(verbose_name='ADOS')
     Bailey = MultiSelectField(blank=True, verbose_name='Бэйли',
