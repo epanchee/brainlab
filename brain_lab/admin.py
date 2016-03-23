@@ -10,7 +10,7 @@ from brain_lab.models import Visitor, RegResult, Visit, Sibling
 
 def tostring_age(age):
     str_age = '-'
-    if str_age:
+    if age:
         str_age = "%d месяцев, %d дней" % (age / 30, age % 30)
     return str_age
 
