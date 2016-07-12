@@ -73,3 +73,55 @@ class HasSiblingsFilter(admin.SimpleListFilter):
         if self.value() == u'2':
             return queryset.exclude(Siblings__isnull=False)
         return queryset
+
+class ETFilter(admin.SimpleListFilter):
+    title = 'Фильтр по Eye Tracking'
+
+    parameter_name = 'ET'
+
+    def lookups(self, request, model_admin):
+        return (
+            (1, 'Popout scenes'), (2, 'Visual search'), (3, 'Gaze following'), (4, 'Pupil measure'),
+            (5, 'Gap-overlap')
+        )
+
+    def queryset(self, request, queryset):
+        if self.value():
+            return queryset.filter(ET__contains=self.value())
+        return queryset
+
+class BaileyFilter(admin.SimpleListFilter):
+    title = 'Фильтр по Bailey'
+
+    parameter_name = 'Bailey'
+
+    def lookups(self, request, model_admin):
+        return ((1, 'Основная часть'), (2, 'Опросник'))
+
+    def queryset(self, request, queryset):
+        if self.value():
+            return queryset.filter(Bailey__contains=self.value())
+        return queryset
+
+class InquirerFilter(admin.SimpleListFilter):
+    title = 'Фильтр по опросникам'
+
+    parameter_name = 'Inquirer'
+
+    def lookups(self, request, model_admin):
+        return (
+            (1, 'Речевое развитие'), (2, 'WA Well-being – общее функционирование'), (3, 'SCQ'),
+            (4, 'Социальные данные'), (5, 'Медицинская история'),
+            (6, 'Vineland'), (7, 'ADI-R'),
+            (8, 'Target child updates – изменения в развитии'), (9, 'МакАртур – с комментариями'), (10, 'IBQ'),
+            (11, 'Сенсорный профиль'), (12, 'Опросник сна 1'), (13, 'Опросник сна 2'),
+            (14, 'Milestones – вехи развития'),
+            (15, 'Parent-Infant caregiver(забота о ребенке)'), (16, 'M-Chart'), (17, 'SRS'),
+            (18, 'Демографические данные'),
+            (19, 'CBCL')
+        )
+
+    def queryset(self, request, queryset):
+        if self.value():
+            return queryset.filter(Inquirer__regex= "(^|,)%s(,|$)" % self.value())
+        return queryset

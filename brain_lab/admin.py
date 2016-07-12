@@ -3,7 +3,7 @@ from datetime import datetime
 
 from django.contrib import admin
 
-from brain_lab.filters import ExplorationsFilter, BirthDayFilter, CorrectedBDayFilter, HasSiblingsFilter
+from brain_lab.filters import ExplorationsFilter, BirthDayFilter, CorrectedBDayFilter, HasSiblingsFilter, ETFilter, BaileyFilter, InquirerFilter
 from brain_lab.forms import VisitForm, VisitorForm, get_norm_visit_age
 from brain_lab.models import Visitor, RegResult, Visit, Sibling
 
@@ -46,7 +46,7 @@ class VisitAdmin(admin.ModelAdmin):
         'AntroData',
         'MRI', 'EEG', 'Neuro', 'PCI', 'ADOS', 'Bailey', 'Inquirer', 'EndOfSurvey', 'Feedback')
     list_display = ('VisitorID', 'VisitDate', 'EndOfSurvey', 'Feedback',)
-    list_filter = ('EndOfSurvey', 'Feedback',)
+    list_filter = ('EndOfSurvey', 'Feedback', 'EEG', 'PCI', ETFilter, BaileyFilter, InquirerFilter)
 
     def visit_age(self, instance):
         return tostring_age(instance.VisitAge)
