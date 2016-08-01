@@ -27,16 +27,15 @@ class VisitorAutocomplete(autocomplete.Select2QuerySetView):
 def time_to_servey(request):
     request_context = RequestContext(request)
 
+    shift = 14
     visitors = []
     for months in [3, 5, 10, 14, 24, 36]:
         current = []
         interval = {'start': datetime.datetime.now() - datetime.timedelta(months * 30),
-                    'end': datetime.datetime.now() - datetime.timedelta(months * 30 - 20)}
+                    'end': datetime.datetime.now() - datetime.timedelta(months * 30 - shift)}
 
-        # print(interval['start'], interval['end'])
         current = Visitor.objects \
-            .filter(CorrectedBirthDate__gte=interval['start']) \
-            .filter(CorrectedBirthDate__lte=interval['end']) \
+            .filter(CorrectedBirthDate__range=(interval['start'], interval['end'])) \
             .filter(LastVisit__lt=F('CorrectedBirthDate') + datetime.timedelta(months * 30))
 
         visitors.extend(current)

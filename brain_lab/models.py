@@ -103,6 +103,9 @@ class Visitor(models.Model):
 
     InnerID = models.CharField(max_length=20, blank=True, null=True, verbose_name='Шифр ребенка')
 
+    app_label = 'brain_lab'
+    model_name = 'visitor'
+
     def __unicode__(self):
         return self.ChildName
 

@@ -1,8 +1,9 @@
 {% extends 'admin/base_site.html' %}
+{% load admin_urls %}
 {% block extrastyle %}{{ block.super }}{% endblock %}
 
 {% block content %}
     {% for visitor in visitors %}
-        <a href="#">{{ visitor.ChildName }} {{ visitor.LastVisit }}</a><br/>
+        <a href="{% url visitor|admin_urlname:'change' visitor.pk %}">{{ visitor.ChildName }} {{ visitor.BirthDate }}</a><br/>
     {% endfor %}
 {% endblock %}
