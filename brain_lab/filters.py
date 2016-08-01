@@ -33,9 +33,10 @@ class BirthDayFilter(admin.SimpleListFilter):
 
     def queryset(self, request, queryset):
         if self.value():
-            return queryset \
-                .filter(BirthDate__lte=datetime.datetime.now() - datetime.timedelta(int(self.value()) * 30) - datetime.timedelta(7)) \
-                .filter(BirthDate__gte=datetime.datetime.now() - datetime.timedelta(int(self.value()) * 30) + datetime.timedelta(7))
+            age_in_days = datetime.datetime.now() - datetime.timedelta(int(self.value()) * 30)
+            week = datetime.timedelta(7)
+            print "%s %s" % (age_in_days - week, age_in_days + week)
+            return queryset.filter(BirthDate__range=(age_in_days - week, age_in_days + week))
         return queryset
 
 
@@ -51,9 +52,10 @@ class CorrectedBDayFilter(admin.SimpleListFilter):
 
     def queryset(self, request, queryset):
         if self.value():
-            return queryset \
-                .filter(CorrectedBirthDate__gte=datetime.datetime.now() - datetime.timedelta(int(self.value()) * 30) - datetime.timedelta(7)) \
-                .filter(CorrectedBirthDate__lte=datetime.datetime.now() - datetime.timedelta(int(self.value()) * 30) + datetime.timedelta(7))
+            age_in_days = datetime.datetime.now() - datetime.timedelta(int(self.value()) * 30)
+            week = datetime.timedelta(7)
+            print "%s %s" % (age_in_days - week, age_in_days + week)
+            return queryset.filter(CorrectedBirthDate__range=(age_in_days - week, age_in_days + week))
         return queryset
 
 
