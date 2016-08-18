@@ -23,6 +23,7 @@ class VisitorAdmin(admin.ModelAdmin):
         BirthDayFilter, CorrectedBDayFilter, ExplorationsFilter, HasSiblingsFilter, 'ChildGenger', 'IsInvited',
     )
     list_display = ('ChildName', 'ChildGenger', 'BirthDate', 'CorrectedBirthDate', 'IsInvited',)
+    search_fields = ('^InnerID',)
 
     form = VisitorForm
 
