@@ -14,6 +14,9 @@ class Sibling(models.Model):
     def __unicode__(self):
         return self.name
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name = u"Сиблинг".encode('utf-8')
         verbose_name_plural = u"Сиблинги".encode('utf-8')
@@ -27,6 +30,18 @@ class Visitor(models.Model):
     Mobile2 = models.CharField(max_length=13, blank=True, verbose_name='Сотовый телефон 2')  # Сотовый телефон 2
     Home_number = models.CharField(max_length=13, blank=True, verbose_name='Домашний телефон')  # Домашний телефон
     Addr = models.CharField(max_length=255, verbose_name='Адрес')  # Адрес
+    Country = models.CharField(max_length=255, verbose_name='Страна', blank=True, null=True)
+    Oblast = models.CharField(max_length=255, verbose_name='Область', blank=True, null=True)
+    City = models.CharField(max_length=255, verbose_name='Город', blank=True, null=True)
+    Street = models.CharField(max_length=255, verbose_name='Улица', blank=True, null=True)
+    House = models.IntegerField(verbose_name='Номер дома', blank=True, null=True)
+    Korpus = models.IntegerField(verbose_name='Корпуса', blank=True, null=True)
+    Flat = models.IntegerField(verbose_name='Квартира', blank=True, null=True)
+    Floor = models.FloatField(verbose_name='Этажность дома', blank=True, null=True)
+    Side = MultiSelectField(blank=True, null=True, verbose_name='Сторона света',
+                            choices=((1, 'С'), (2, 'СВ'), (3, 'В'), (4, 'ЮВ'),
+                                     (5, 'Ю'), (6, 'ЮЗ'), (7, 'З'), (8, 'СЗ')))
+    BuildingMaterial = models.CharField(max_length=255, verbose_name='Материал стен дома', blank=True, null=True)
     Email = models.EmailField(verbose_name='E-mail')
     ChildName = models.CharField(max_length=50, verbose_name='ФИО ребенка')  # ФИО ребенка
     BirthDate = models.DateField(verbose_name='Дата рождения ребенка')  # Дата рождения ребенка
@@ -109,6 +124,9 @@ class Visitor(models.Model):
     def __unicode__(self):
         return self.ChildName
 
+    def __str__(self):
+        return self.ChildName
+
     class Meta:
         verbose_name = u"Ребенок".encode('utf-8')
         verbose_name_plural = u"Дети".encode('utf-8')
@@ -180,4 +198,7 @@ class Visit(models.Model):
         verbose_name_plural = u"Посещения".encode('utf-8')
 
     def __unicode__(self):
+        return "%s %s" % (self.VisitorID.ChildName, self.VisitDate)
+
+    def __str__(self):
         return "%s %s" % (self.VisitorID.ChildName, self.VisitDate)
